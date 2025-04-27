@@ -107,19 +107,52 @@ int yywrap()
 //         }
 //     }
 // }
+void append_to_file(const char* filename, const char* format, ...) {
+    FILE* f = fopen(filename, "a");  // open in append mode (create if missing)
+    if (f == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    va_list args;
+    va_start(args, format);
+    vfprintf(f, format, args); // flexible writing
+    va_end(args);
+
+    fprintf(f, "\n"); // add newline after each write
+    fclose(f);
+}
+
+void append_to_file_withoutln(const char* filename, const char* format, ...) {
+    FILE* f = fopen(filename, "a");  // open in append mode (create if missing)
+    if (f == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    va_list args;
+    va_start(args, format);
+    vfprintf(f, format, args); // flexible writing
+    va_end(args);
+
+    fclose(f);
+}
 
 void printListHelper(list *l) {
     if (!l) return;
 
     if (l->first == NULL) {
+        append_to_file_withoutln("output.m", "%g", l->value);
         printf("%g", l->value);
         if (l->rest) {
+            append_to_file_withoutln("output.m", ", ");
             printf(", ");
             printListHelper(l->rest);
         }
     } else {
         printListHelper(l->first);
         if (l->rest) {
+            append_to_file_withoutln("output.m", ", ");
             printf(", ");
             printListHelper(l->rest);
         }
@@ -128,7 +161,10 @@ void printListHelper(list *l) {
 
 void PrintList(list *l) {
     printf("[");
+    append_to_file_withoutln("output.m", "[");
     printListHelper(l);
+    append_to_file_withoutln("output.m", "]");
+    append_to_file_withoutln("output.m", "\n");
     printf("]\n");
 }
 
@@ -247,22 +283,6 @@ list *Multiply(list *one, list *two) {
     }
 }
 
-void append_to_file(const char* filename, const char* format, ...) {
-    FILE* f = fopen(filename, "a");  // open in append mode (create if missing)
-    if (f == NULL) {
-        perror("Error opening file");
-        return;
-    }
-
-    va_list args;
-    va_start(args, format);
-    vfprintf(f, format, args); // flexible writing
-    va_end(args);
-
-    fprintf(f, "\n"); // add newline after each write
-    fclose(f);
-}
-
 list *lst; /* for debugging. temp. */
 
 // struct CodeNode {
@@ -303,21 +323,23 @@ LINE        : VAR '=' EXPR '\n' {
           else sym->value = $3;                 // Assign the expression value
         //   printf("%s = %g\n", $1, sym->value);
 
-          printf("x = ");
+          printf("%s = ", (char*)$1);
+          append_to_file_withoutln("output.m", "%s = ", (char*)$1);
           PrintList($3);
+
       }
             | EXPR '\n' { }
             | '\n';
 
 EXPR        :   EXPR    '+'     TERM            { printf("addition of vectors\n");}
             | EXPR '-' TERM { printf("subtraction of vectors\n"); }
-            |   TERM                            { $$ = $1; printlist($1);}
+            |   TERM                            { $$ = $1; }
             |  MEAN VAR { printf("mean(%s)\n", (char*)$2); append_to_file("output.m", "mean(%s)", (char*)$2);}
             |  MAX VAR { printf("max(%s)\n", (char*)$2); append_to_file("output.m", "max(%s)", (char*)$2);}
             |  MIN VAR { printf("min(%s)\n", (char*)$2); append_to_file("output.m", "min(%s)", (char*)$2);}
             |  SUM VAR { printf("sum(%s)\n", (char*)$2); append_to_file("output.m", "sum(%s)", (char*)$2);}
             |  MOVMEAN VAR NUM { printf("movmean(%s, %g)\n", (char*)$2, $3->value); append_to_file("output.m", "movmean(%s, %g)", (char*)$2, $3->value);}
-            |  REVERSE VAR { printf("flip(%s)\n", (char*)$2); append_to_file("output.m", "reverse(%s)", (char*)$2);}
+            |  REVERSE VAR { printf("flip(%s)\n", (char*)$2); append_to_file("output.m", "flip(%s)", (char*)$2);}
             |  DOTPRODUCT VAR VAR { printf("dot(%s, %s)\n", (char*)$2, (char*)$3); append_to_file("output.m", "dot(%s,%s)", (char*)$2, (char*)$3);}
             |  SCATTERPLOT VAR VAR { printf("scatter(%s, %s)\n", (char*)$2, (char*)$3); append_to_file("output.m", "scatter(%s,%s)", (char*)$2, (char*)$3);}
             |  HISTOGRAM VAR NUM { printf("hist(%s, %g)\n", (char*)$2, $3->value); append_to_file("output.m", "hist(%s,%g)", (char*)$2, $3->value);}
