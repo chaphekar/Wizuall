@@ -11,6 +11,9 @@ void yyerror(char*);
 %}
 
 %%
+
+"func" {return FUNC;}
+"mean" {return MEAN;}
 [a-zA-Z_][a-zA-Z0-9_]* { yylval = (list*)strdup(yytext); return VAR; }
 [0-9][0-9]*		  { yylval = NewNode(); yylval->value = atof(yytext); return NUM; }
 [0-9][0-9]*\.[0-9]+	  { yylval = NewNode(); yylval->value = atof(yytext); return NUM; }

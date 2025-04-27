@@ -207,25 +207,23 @@ list *Multiply(list *one, list *two) {
 
 list *lst; /* for debugging. temp. */
 
-// struct CodeNode {
-//     std::string code;
-//     std::string name;
-// }
+struct CodeNode {
+    std::string code;
+    std::string name;
+}
 %}
 
-// %union {
-//     char* op_val;
-//     struct CodeNode* codenode;
-// }
+%union {
+    char* op_val;
+    struct CodeNode* codenode;
+}
 
 %token NUM
 %token VAR
-%token FUNC
-%token MEAN
+%token <codenode> functions
 
 %%
-LINES       :   LINES LINE { }
-            |   FUNCTION
+LINES       :   LINES LINE
             |
             ;
 
@@ -235,15 +233,13 @@ LINE        : VAR '=' EXPR '\n' {
           else sym->value = $3;                 // Assign the expression value
         //   printf("%s = %g\n", $1, sym->value);
       }
-            | EXPR '\n' { }
+            | EXPR '\n' { printlist($1); }
             | '\n';
 
 EXPR        :   EXPR    '+'     TERM            { printf("addition of vectors\n");}
             | EXPR '-' TERM { printf("subtraction of vectors\n"); }
             |   TERM                            { $$ = $1; }
-            |  MEAN VAR { printf("mean(%s)\n", (char*)$2); }
             ;
-
 TERM        :   TERM    '*'     FACTOR          { printf("multiplication of term and factor\n"); }
             | TERM '/' FACTOR { printf("division of term and factor\n"); }
             |   FACTOR                          { $$ = $1; }
@@ -267,16 +263,6 @@ EXTEND      :   LIST                            { $$ = $1; }
             |                                   { $$ = NULL; }
             ;
 
-FUNCTION    : FUNC VAR '(' PARAMS ')' NEWLINES '{' LINES '}' {printf("function spotted\n");}
-            ;
-
-NEWLINES    : '\n' NEWLINES
-            | /* empty */
-            ;
-
-PARAMS      : VAR                        { /* single parameter */ }
-            | PARAMS ',' VAR             { /* more parameters */ }
-            ;
 %%
 
 int main(int argc, char *argv[])

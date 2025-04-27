@@ -55,7 +55,9 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     NUM = 258,                     /* NUM  */
-    VAR = 259                      /* VAR  */
+    VAR = 259,                     /* VAR  */
+    FUNC = 260,                    /* FUNC  */
+    MEAN = 261                     /* MEAN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
