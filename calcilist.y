@@ -91,24 +91,45 @@ int yywrap()
 //     }
 // }
 
-void PrintList(list *l) {
-    printob;
-    while(l)
-    {
-        printf("%g, ", l->value);
-        l = l->rest;
-    }
-    printcb;
+// void PrintList(list *l, list *init) {
+//     if(l) {
+//         if(l->first) {
+//             // printob;
+//             PrintList(l->first,init);
+//             PrintList(l->rest,init);
+//             // printcb;
+//         }
+//         else{
+//             if(l == init)
+//             printf("%g",l->value);
+//             else printf(", %g", l->value);
+        
+//         }
+//     }
+// }
 
-    // if(l) {
-    //     if(l->first) {
-    //         printob;
-    //         PrintList(l->first);
-    //         PrintList(l->rest);
-    //         printcb;
-    //     }
-    //     else printf("%g ",l->value);
-    // }
+void printListHelper(list *l) {
+    if (!l) return;
+
+    if (l->first == NULL) {
+        printf("%g", l->value);
+        if (l->rest) {
+            printf(", ");
+            printListHelper(l->rest);
+        }
+    } else {
+        printListHelper(l->first);
+        if (l->rest) {
+            printf(", ");
+            printListHelper(l->rest);
+        }
+    }
+}
+
+void PrintList(list *l) {
+    printf("[");
+    printListHelper(l);
+    printf("]\n");
 }
 
 
@@ -281,13 +302,16 @@ LINE        : VAR '=' EXPR '\n' {
           if (!sym) sym = insert((char*)$1, $3); // Insert if not found
           else sym->value = $3;                 // Assign the expression value
         //   printf("%s = %g\n", $1, sym->value);
+
+          printf("x = ");
+          PrintList($3);
       }
             | EXPR '\n' { }
             | '\n';
 
 EXPR        :   EXPR    '+'     TERM            { printf("addition of vectors\n");}
             | EXPR '-' TERM { printf("subtraction of vectors\n"); }
-            |   TERM                            { $$ = $1; }
+            |   TERM                            { $$ = $1; printlist($1);}
             |  MEAN VAR { printf("mean(%s)\n", (char*)$2); append_to_file("output.m", "mean(%s)", (char*)$2);}
             |  MAX VAR { printf("max(%s)\n", (char*)$2); append_to_file("output.m", "max(%s)", (char*)$2);}
             |  MIN VAR { printf("min(%s)\n", (char*)$2); append_to_file("output.m", "min(%s)", (char*)$2);}
@@ -297,7 +321,7 @@ EXPR        :   EXPR    '+'     TERM            { printf("addition of vectors\n"
             |  DOTPRODUCT VAR VAR { printf("dot(%s, %s)\n", (char*)$2, (char*)$3); append_to_file("output.m", "dot(%s,%s)", (char*)$2, (char*)$3);}
             |  SCATTERPLOT VAR VAR { printf("scatter(%s, %s)\n", (char*)$2, (char*)$3); append_to_file("output.m", "scatter(%s,%s)", (char*)$2, (char*)$3);}
             |  HISTOGRAM VAR NUM { printf("hist(%s, %g)\n", (char*)$2, $3->value); append_to_file("output.m", "hist(%s,%g)", (char*)$2, $3->value);}
-            |  POWER VAR NUM { printf("%s.^%g\n", (char*)$2, $3->value); }
+            |  POWER VAR NUM { printf("%s.^%g\n", (char*)$2, $3->value); append_to_file("output.m", "%s.^%g\n", (char*)$2, $3->value);}
             ;
 
 TERM        :   TERM    '*'     FACTOR          { printf("multiplication of term and factor\n"); }

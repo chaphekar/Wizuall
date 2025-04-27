@@ -160,24 +160,45 @@ int yywrap()
 //     }
 // }
 
-void PrintList(list *l) {
-    printob;
-    while(l)
-    {
-        printf("%g, ", l->value);
-        l = l->rest;
-    }
-    printcb;
+// void PrintList(list *l, list *init) {
+//     if(l) {
+//         if(l->first) {
+//             // printob;
+//             PrintList(l->first,init);
+//             PrintList(l->rest,init);
+//             // printcb;
+//         }
+//         else{
+//             if(l == init)
+//             printf("%g",l->value);
+//             else printf(", %g", l->value);
+        
+//         }
+//     }
+// }
 
-    // if(l) {
-    //     if(l->first) {
-    //         printob;
-    //         PrintList(l->first);
-    //         PrintList(l->rest);
-    //         printcb;
-    //     }
-    //     else printf("%g ",l->value);
-    // }
+void printListHelper(list *l) {
+    if (!l) return;
+
+    if (l->first == NULL) {
+        printf("%g", l->value);
+        if (l->rest) {
+            printf(", ");
+            printListHelper(l->rest);
+        }
+    } else {
+        printListHelper(l->first);
+        if (l->rest) {
+            printf(", ");
+            printListHelper(l->rest);
+        }
+    }
+}
+
+void PrintList(list *l) {
+    printf("[");
+    printListHelper(l);
+    printf("]\n");
 }
 
 
@@ -318,7 +339,7 @@ list *lst; /* for debugging. temp. */
 //     std::string name;
 // }
 
-#line 322 "calcilist.tab.c"
+#line 343 "calcilist.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -773,10 +794,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   274,   274,   275,   276,   279,   285,   286,   288,   289,
-     290,   291,   292,   293,   294,   295,   296,   297,   298,   299,
-     300,   303,   304,   305,   307,   315,   316,   317,   319,   320,
-     322,   323,   326,   329,   330,   333,   334
+       0,   295,   295,   296,   297,   300,   309,   310,   312,   313,
+     314,   315,   316,   317,   318,   319,   320,   321,   322,   323,
+     324,   327,   328,   329,   331,   339,   340,   341,   343,   344,
+     346,   347,   350,   353,   354,   357,   358
 };
 #endif
 
@@ -1386,126 +1407,129 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* LINES: LINES LINE  */
-#line 274 "calcilist.y"
+#line 295 "calcilist.y"
                            { }
-#line 1392 "calcilist.tab.c"
+#line 1413 "calcilist.tab.c"
     break;
 
   case 5: /* LINE: VAR '=' EXPR '\n'  */
-#line 279 "calcilist.y"
+#line 300 "calcilist.y"
                                 {
           Symbol *sym = lookup((char*)yyvsp[-3]);  // Use the identifier name from Symbol
           if (!sym) sym = insert((char*)yyvsp[-3], yyvsp[-1]); // Insert if not found
           else sym->value = yyvsp[-1];                 // Assign the expression value
         //   printf("%s = %g\n", $1, sym->value);
+
+          printf("x = ");
+          PrintList(yyvsp[-1]);
       }
-#line 1403 "calcilist.tab.c"
-    break;
-
-  case 6: /* LINE: EXPR '\n'  */
-#line 285 "calcilist.y"
-                        { }
-#line 1409 "calcilist.tab.c"
-    break;
-
-  case 8: /* EXPR: EXPR '+' TERM  */
-#line 288 "calcilist.y"
-                                                { printf("addition of vectors\n");}
-#line 1415 "calcilist.tab.c"
-    break;
-
-  case 9: /* EXPR: EXPR '-' TERM  */
-#line 289 "calcilist.y"
-                            { printf("subtraction of vectors\n"); }
-#line 1421 "calcilist.tab.c"
-    break;
-
-  case 10: /* EXPR: TERM  */
-#line 290 "calcilist.y"
-                                                { yyval = yyvsp[0]; }
 #line 1427 "calcilist.tab.c"
     break;
 
-  case 11: /* EXPR: MEAN VAR  */
-#line 291 "calcilist.y"
-                        { printf("mean(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "mean(%s)", (char*)yyvsp[0]);}
+  case 6: /* LINE: EXPR '\n'  */
+#line 309 "calcilist.y"
+                        { }
 #line 1433 "calcilist.tab.c"
     break;
 
-  case 12: /* EXPR: MAX VAR  */
-#line 292 "calcilist.y"
-                       { printf("max(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "max(%s)", (char*)yyvsp[0]);}
+  case 8: /* EXPR: EXPR '+' TERM  */
+#line 312 "calcilist.y"
+                                                { printf("addition of vectors\n");}
 #line 1439 "calcilist.tab.c"
     break;
 
-  case 13: /* EXPR: MIN VAR  */
-#line 293 "calcilist.y"
-                       { printf("min(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "min(%s)", (char*)yyvsp[0]);}
+  case 9: /* EXPR: EXPR '-' TERM  */
+#line 313 "calcilist.y"
+                            { printf("subtraction of vectors\n"); }
 #line 1445 "calcilist.tab.c"
     break;
 
-  case 14: /* EXPR: SUM VAR  */
-#line 294 "calcilist.y"
-                       { printf("sum(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "sum(%s)", (char*)yyvsp[0]);}
+  case 10: /* EXPR: TERM  */
+#line 314 "calcilist.y"
+                                                { yyval = yyvsp[0]; printlist(yyvsp[0]);}
 #line 1451 "calcilist.tab.c"
     break;
 
-  case 15: /* EXPR: MOVMEAN VAR NUM  */
-#line 295 "calcilist.y"
-                               { printf("movmean(%s, %g)\n", (char*)yyvsp[-1], yyvsp[0]->value); append_to_file("output.m", "movmean(%s, %g)", (char*)yyvsp[-1], yyvsp[0]->value);}
+  case 11: /* EXPR: MEAN VAR  */
+#line 315 "calcilist.y"
+                        { printf("mean(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "mean(%s)", (char*)yyvsp[0]);}
 #line 1457 "calcilist.tab.c"
     break;
 
-  case 16: /* EXPR: REVERSE VAR  */
-#line 296 "calcilist.y"
-                           { printf("flip(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "reverse(%s)", (char*)yyvsp[0]);}
+  case 12: /* EXPR: MAX VAR  */
+#line 316 "calcilist.y"
+                       { printf("max(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "max(%s)", (char*)yyvsp[0]);}
 #line 1463 "calcilist.tab.c"
     break;
 
-  case 17: /* EXPR: DOTPRODUCT VAR VAR  */
-#line 297 "calcilist.y"
-                                  { printf("dot(%s, %s)\n", (char*)yyvsp[-1], (char*)yyvsp[0]); append_to_file("output.m", "dot(%s,%s)", (char*)yyvsp[-1], (char*)yyvsp[0]);}
+  case 13: /* EXPR: MIN VAR  */
+#line 317 "calcilist.y"
+                       { printf("min(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "min(%s)", (char*)yyvsp[0]);}
 #line 1469 "calcilist.tab.c"
     break;
 
-  case 18: /* EXPR: SCATTERPLOT VAR VAR  */
-#line 298 "calcilist.y"
-                                   { printf("scatter(%s, %s)\n", (char*)yyvsp[-1], (char*)yyvsp[0]); append_to_file("output.m", "scatter(%s,%s)", (char*)yyvsp[-1], (char*)yyvsp[0]);}
+  case 14: /* EXPR: SUM VAR  */
+#line 318 "calcilist.y"
+                       { printf("sum(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "sum(%s)", (char*)yyvsp[0]);}
 #line 1475 "calcilist.tab.c"
     break;
 
-  case 19: /* EXPR: HISTOGRAM VAR NUM  */
-#line 299 "calcilist.y"
-                                 { printf("hist(%s, %g)\n", (char*)yyvsp[-1], yyvsp[0]->value); append_to_file("output.m", "hist(%s, %g)", (char*)yyvsp[-1], yyvsp[0]->value);}
+  case 15: /* EXPR: MOVMEAN VAR NUM  */
+#line 319 "calcilist.y"
+                               { printf("movmean(%s, %g)\n", (char*)yyvsp[-1], yyvsp[0]->value); append_to_file("output.m", "movmean(%s, %g)", (char*)yyvsp[-1], yyvsp[0]->value);}
 #line 1481 "calcilist.tab.c"
     break;
 
-  case 20: /* EXPR: POWER VAR NUM  */
-#line 300 "calcilist.y"
-                             { printf("%s.^%g\n", (char*)yyvsp[-1], yyvsp[0]->value); }
+  case 16: /* EXPR: REVERSE VAR  */
+#line 320 "calcilist.y"
+                           { printf("flip(%s)\n", (char*)yyvsp[0]); append_to_file("output.m", "reverse(%s)", (char*)yyvsp[0]);}
 #line 1487 "calcilist.tab.c"
     break;
 
-  case 21: /* TERM: TERM '*' FACTOR  */
-#line 303 "calcilist.y"
-                                                { printf("multiplication of term and factor\n"); }
+  case 17: /* EXPR: DOTPRODUCT VAR VAR  */
+#line 321 "calcilist.y"
+                                  { printf("dot(%s, %s)\n", (char*)yyvsp[-1], (char*)yyvsp[0]); append_to_file("output.m", "dot(%s,%s)", (char*)yyvsp[-1], (char*)yyvsp[0]);}
 #line 1493 "calcilist.tab.c"
     break;
 
-  case 22: /* TERM: TERM '/' FACTOR  */
-#line 304 "calcilist.y"
-                              { printf("division of term and factor\n"); }
+  case 18: /* EXPR: SCATTERPLOT VAR VAR  */
+#line 322 "calcilist.y"
+                                   { printf("scatter(%s, %s)\n", (char*)yyvsp[-1], (char*)yyvsp[0]); append_to_file("output.m", "scatter(%s,%s)", (char*)yyvsp[-1], (char*)yyvsp[0]);}
 #line 1499 "calcilist.tab.c"
     break;
 
-  case 23: /* TERM: FACTOR  */
-#line 305 "calcilist.y"
-                                                { yyval = yyvsp[0]; }
+  case 19: /* EXPR: HISTOGRAM VAR NUM  */
+#line 323 "calcilist.y"
+                                 { printf("hist(%s, %g)\n", (char*)yyvsp[-1], yyvsp[0]->value); append_to_file("output.m", "hist(%s,%g)", (char*)yyvsp[-1], yyvsp[0]->value);}
 #line 1505 "calcilist.tab.c"
     break;
 
+  case 20: /* EXPR: POWER VAR NUM  */
+#line 324 "calcilist.y"
+                             { printf("%s.^%g\n", (char*)yyvsp[-1], yyvsp[0]->value); append_to_file("output.m", "%s.^%g\n", (char*)yyvsp[-1], yyvsp[0]->value);}
+#line 1511 "calcilist.tab.c"
+    break;
+
+  case 21: /* TERM: TERM '*' FACTOR  */
+#line 327 "calcilist.y"
+                                                { printf("multiplication of term and factor\n"); }
+#line 1517 "calcilist.tab.c"
+    break;
+
+  case 22: /* TERM: TERM '/' FACTOR  */
+#line 328 "calcilist.y"
+                              { printf("division of term and factor\n"); }
+#line 1523 "calcilist.tab.c"
+    break;
+
+  case 23: /* TERM: FACTOR  */
+#line 329 "calcilist.y"
+                                                { yyval = yyvsp[0]; }
+#line 1529 "calcilist.tab.c"
+    break;
+
   case 24: /* FACTOR: VAR  */
-#line 307 "calcilist.y"
+#line 331 "calcilist.y"
              {
              Symbol *sym = lookup((char*)yyvsp[0]);  // Use the identifier name from Symbol
              if (!sym) {
@@ -1514,71 +1538,71 @@ yyreduce:
              }
              yyval = DeepCopy(sym->value); // Use the value from the symbol table
          }
-#line 1518 "calcilist.tab.c"
-    break;
-
-  case 25: /* FACTOR: NUM  */
-#line 315 "calcilist.y"
-              { yyval = yyvsp[0]; }
-#line 1524 "calcilist.tab.c"
-    break;
-
-  case 26: /* FACTOR: '(' EXPR ')'  */
-#line 316 "calcilist.y"
-                       { yyval = yyvsp[-1]; }
-#line 1530 "calcilist.tab.c"
-    break;
-
-  case 27: /* FACTOR: '[' LIST ']'  */
-#line 317 "calcilist.y"
-                       { yyval = yyvsp[-1]; }
-#line 1536 "calcilist.tab.c"
-    break;
-
-  case 28: /* LIST: NUM EXTEND  */
-#line 319 "calcilist.y"
-                                                { yyval = NewNode(); yyval->first = yyvsp[-1]; yyval->rest = yyvsp[0]; }
 #line 1542 "calcilist.tab.c"
     break;
 
-  case 29: /* LIST: '[' LIST ']' EXTEND  */
-#line 320 "calcilist.y"
-                                                { yyval = NewNode(); yyval->first = yyvsp[-2]; yyval->rest = yyvsp[0]; }
+  case 25: /* FACTOR: NUM  */
+#line 339 "calcilist.y"
+              { yyval = yyvsp[0]; }
 #line 1548 "calcilist.tab.c"
     break;
 
-  case 30: /* EXTEND: LIST  */
-#line 322 "calcilist.y"
-                                                { yyval = yyvsp[0]; }
+  case 26: /* FACTOR: '(' EXPR ')'  */
+#line 340 "calcilist.y"
+                       { yyval = yyvsp[-1]; }
 #line 1554 "calcilist.tab.c"
     break;
 
-  case 31: /* EXTEND: %empty  */
-#line 323 "calcilist.y"
-                                                { yyval = NULL; }
+  case 27: /* FACTOR: '[' LIST ']'  */
+#line 341 "calcilist.y"
+                       { yyval = yyvsp[-1]; }
 #line 1560 "calcilist.tab.c"
     break;
 
-  case 32: /* FUNCTION: FUNC VAR '(' PARAMS ')' NEWLINES '{' LINES '}'  */
-#line 326 "calcilist.y"
-                                                             {printf("function spotted\n");}
+  case 28: /* LIST: NUM EXTEND  */
+#line 343 "calcilist.y"
+                                                { yyval = NewNode(); yyval->first = yyvsp[-1]; yyval->rest = yyvsp[0]; }
 #line 1566 "calcilist.tab.c"
     break;
 
-  case 35: /* PARAMS: VAR  */
-#line 333 "calcilist.y"
-                                         { /* single parameter */ }
+  case 29: /* LIST: '[' LIST ']' EXTEND  */
+#line 344 "calcilist.y"
+                                                { yyval = NewNode(); yyval->first = yyvsp[-2]; yyval->rest = yyvsp[0]; }
 #line 1572 "calcilist.tab.c"
     break;
 
-  case 36: /* PARAMS: PARAMS ',' VAR  */
-#line 334 "calcilist.y"
-                                         { /* more parameters */ }
+  case 30: /* EXTEND: LIST  */
+#line 346 "calcilist.y"
+                                                { yyval = yyvsp[0]; }
 #line 1578 "calcilist.tab.c"
     break;
 
+  case 31: /* EXTEND: %empty  */
+#line 347 "calcilist.y"
+                                                { yyval = NULL; }
+#line 1584 "calcilist.tab.c"
+    break;
 
-#line 1582 "calcilist.tab.c"
+  case 32: /* FUNCTION: FUNC VAR '(' PARAMS ')' NEWLINES '{' LINES '}'  */
+#line 350 "calcilist.y"
+                                                             {printf("function spotted\n");}
+#line 1590 "calcilist.tab.c"
+    break;
+
+  case 35: /* PARAMS: VAR  */
+#line 357 "calcilist.y"
+                                         { /* single parameter */ }
+#line 1596 "calcilist.tab.c"
+    break;
+
+  case 36: /* PARAMS: PARAMS ',' VAR  */
+#line 358 "calcilist.y"
+                                         { /* more parameters */ }
+#line 1602 "calcilist.tab.c"
+    break;
+
+
+#line 1606 "calcilist.tab.c"
 
       default: break;
     }
@@ -1771,7 +1795,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 336 "calcilist.y"
+#line 360 "calcilist.y"
 
 
 int main(int argc, char *argv[])
