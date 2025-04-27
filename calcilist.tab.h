@@ -57,7 +57,16 @@ extern int yydebug;
     NUM = 258,                     /* NUM  */
     VAR = 259,                     /* VAR  */
     FUNC = 260,                    /* FUNC  */
-    MEAN = 261                     /* MEAN  */
+    MEAN = 261,                    /* MEAN  */
+    MAX = 262,                     /* MAX  */
+    MIN = 263,                     /* MIN  */
+    SUM = 264,                     /* SUM  */
+    MOVMEAN = 265,                 /* MOVMEAN  */
+    REVERSE = 266,                 /* REVERSE  */
+    DOTPRODUCT = 267,              /* DOTPRODUCT  */
+    SCATTERPLOT = 268,             /* SCATTERPLOT  */
+    HISTOGRAM = 269,               /* HISTOGRAM  */
+    POWER = 270                    /* POWER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
