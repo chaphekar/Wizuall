@@ -177,6 +177,7 @@ list *NewNode(void) {
         temp->first = NULL;
         temp->rest = NULL;
         temp->value = M_E;
+        temp->code = NULL;
     }
     else error(-1,errno,"Allocation failed at %dth new node.", nodecount+1);
     return temp;
@@ -291,11 +292,6 @@ list *lst; /* for debugging. temp. */
 // }
 %}
 
-// %union {
-//     char* op_val;
-//     struct CodeNode* codenode;
-// }
-
 %token NUM
 %token VAR
 %token FUNC
@@ -310,7 +306,6 @@ list *lst; /* for debugging. temp. */
 %token HISTOGRAM
 %token POWER
 
-
 %%
 LINES       :   LINES LINE { }
             |   FUNCTION
@@ -318,53 +313,86 @@ LINES       :   LINES LINE { }
             ;
 
 LINE        : VAR '=' EXPR '\n' {
-          Symbol *sym = lookup((char*)$1);  // Use the identifier name from Symbol
-          if (!sym) sym = insert((char*)$1, $3); // Insert if not found
-          else sym->value = $3;                 // Assign the expression value
+          Symbol *sym = lookup($1->code);  // Use the identifier name from Symbol
+          if (!sym) sym = insert($1->code, NULL); // Insert if not found
         //   printf("%s = %g\n", $1, sym->value);
 
-          printf("%s = ", (char*)$1);
-          append_to_file_withoutln("output.m", "%s = ", (char*)$1);
-          PrintList($3);
+          printf("%s = %s\n", $1->code, $3->code);
+        //   append_to_file("output.m", "%s = %s", $1->code, $3->code);
 
       }
-            | EXPR '\n' { }
+            | EXPR '\n' { 
+                printf("%s\n", $1->code);
+                // append_to_file("output.m", "%s", $1->code);
+            }
             | '\n';
 
-EXPR        :   EXPR    '+'     TERM            { printf("addition of vectors\n");}
-            | EXPR '-' TERM { printf("subtraction of vectors\n"); }
+EXPR        :   EXPR    '+'     TERM  { 
+                $$ = NewNode();
+                $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 4);
+                sprintf($$->code, "%s + %s", $1->code, $3->code);
+            }
+            | EXPR '-' TERM { 
+                $$ = NewNode();
+                $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 4);
+                sprintf($$->code, "%s - %s", $1->code, $3->code);
+            }
             |   TERM                            { $$ = $1; }
-            |  MEAN VAR { printf("mean(%s)\n", (char*)$2); append_to_file("output.m", "mean(%s)", (char*)$2);}
-            |  MAX VAR { printf("max(%s)\n", (char*)$2); append_to_file("output.m", "max(%s)", (char*)$2);}
-            |  MIN VAR { printf("min(%s)\n", (char*)$2); append_to_file("output.m", "min(%s)", (char*)$2);}
-            |  SUM VAR { printf("sum(%s)\n", (char*)$2); append_to_file("output.m", "sum(%s)", (char*)$2);}
-            |  MOVMEAN VAR NUM { printf("movmean(%s, %g)\n", (char*)$2, $3->value); append_to_file("output.m", "movmean(%s, %g)", (char*)$2, $3->value);}
-            |  REVERSE VAR { printf("flip(%s)\n", (char*)$2); append_to_file("output.m", "flip(%s)", (char*)$2);}
-            |  DOTPRODUCT VAR VAR { printf("dot(%s, %s)\n", (char*)$2, (char*)$3); append_to_file("output.m", "dot(%s,%s)", (char*)$2, (char*)$3);}
-            |  SCATTERPLOT VAR VAR { printf("scatter(%s, %s)\n", (char*)$2, (char*)$3); append_to_file("output.m", "scatter(%s,%s)", (char*)$2, (char*)$3);}
-            |  HISTOGRAM VAR NUM { printf("hist(%s, %g)\n", (char*)$2, $3->value); append_to_file("output.m", "hist(%s,%g)", (char*)$2, $3->value);}
-            |  POWER VAR NUM { printf("%s.^%g\n", (char*)$2, $3->value); append_to_file("output.m", "%s.^%g\n", (char*)$2, $3->value);}
+            |  MEAN VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "mean(%s)", $2->code); }
+            |  MAX VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "max(%s)", $2->code); }
+            |  MIN VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "min(%s)", $2->code); }
+            |  SUM VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "sum(%s)", $2->code); }
+            |  MOVMEAN VAR NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 10); sprintf($$->code, "movmean(%s, %s)", $2->code, $3->code); }
+            |  REVERSE VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "flip(%s)", $2->code); }
+            |  DOTPRODUCT VAR VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 10); sprintf($$->code, "dot(%s,%s)", $2->code, $3->code); }
+            |  SCATTERPLOT VAR VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 13); sprintf($$->code, "scatter(%s,%s)", $2->code, $3->code); }
+            |  HISTOGRAM VAR NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 12); sprintf($$->code, "hist(%s,%s)", $2->code, $3->code); }
+            |  POWER VAR NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 5); sprintf($$->code, "%s.^%s", $2->code, $3->code); }
             ;
 
-TERM        :   TERM    '*'     FACTOR          { printf("multiplication of term and factor\n"); }
-            | TERM '/' FACTOR { printf("division of term and factor\n"); }
+TERM        :   TERM    '*'     FACTOR          { }
+            | TERM '/' FACTOR { }
             |   FACTOR                          { $$ = $1; }
             ;
 FACTOR : VAR {
-             Symbol *sym = lookup((char*)$1);  // Use the identifier name from Symbol
+             Symbol *sym = lookup($1->code);  // Use the identifier name from Symbol
              if (!sym) {
+                 printf("undef: %s\n", $1->code);
                  yyerror("Undefined variable");
                  YYABORT;
              }
-             $$ = DeepCopy(sym->value); // Use the value from the symbol table
+             $$ = NewNode();
+             $$->code = strdup($1->code);  // Store the variable's code
          }
-        | NUM { $$ = $1; }
-        | '(' EXPR ')' { $$ = $2; }
-        | '[' LIST ']' { $$ = $2; };
+        | NUM { $$ = NewNode(); $$->code = (char*)malloc(32); sprintf($$->code, "%g", $1->value); }
+        | '(' EXPR ')' { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 4); sprintf($$->code, "(%s)", $2->code); }
+        | '[' LIST ']' { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 4); sprintf($$->code, "[%s]", $2->code); };
 
-LIST        :   NUM     EXTEND                  { $$ = NewNode(); $$->first = $1; $$->rest = $2; }
-            |   '['     LIST    ']'     EXTEND  { $$ = NewNode(); $$->first = $2; $$->rest = $4; }
+LIST        :   NUM EXTEND { 
+                char buffer[32];
+                sprintf(buffer, "%g", $1->value);
+                if ($2) {
+                    $$ = (list*)malloc(sizeof(list));
+                    $$->code = (char*)malloc(strlen(buffer) + strlen($2->code) + 3);
+                    sprintf($$->code, "%s, %s", buffer, $2->code);  // Concatenate the number with the extended list code
+                } else {
+                    $$ = (list*)malloc(sizeof(list));
+                    $$->code = strdup(buffer);  // Just use the number's code if there's no extension
+                }
+            }
+            | '[' LIST ']' EXTEND { 
+                if ($4) {
+                    $$ = (list*)malloc(sizeof(list));
+                    $$->code = (char*)malloc(strlen($2->code) + strlen($4->code) + 4);
+                    sprintf($$->code, "[%s], %s", $2->code, $4->code);  // Wrap the list in brackets and add the extended part
+                } else {
+                    $$ = (list*)malloc(sizeof(list));
+                    $$->code = (char*)malloc(strlen($2->code) + 4);
+                    sprintf($$->code, "[%s]", $2->code);  // Just wrap the list in brackets
+                }
+            }
             ;
+
 EXTEND      :   LIST                            { $$ = $1; }
             |                                   { $$ = NULL; }
             ;
@@ -383,6 +411,26 @@ PARAMS      : VAR                        { /* single parameter */ }
 
 int main(int argc, char *argv[])
 {
-yyparse();
-return 0;
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <output_filename>\n", argv[0]);
+        return 1;
+    }
+
+    // Open the output file
+    FILE *output_file = fopen(argv[1], "w");
+    if (output_file == NULL) {
+        perror("Error opening output file");
+        return 1;
+    }
+
+    // Redirect stdout to the specified output file
+    freopen(argv[1], "w", stdout);
+
+    // Start parsing the input
+    yyparse();
+
+    // Close the output file
+    fclose(output_file);
+
+    return 0;
 }

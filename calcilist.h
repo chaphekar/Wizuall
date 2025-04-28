@@ -5,6 +5,7 @@
 typedef struct _list {
     struct _list *first, *rest;
     double value;
+    char* code;
 } list;
 extern char *yytext;
 

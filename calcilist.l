@@ -24,9 +24,9 @@ void yyerror(char*);
 "histogram" {return HISTOGRAM;}
 "power" {return POWER;}
 
-[a-zA-Z_][a-zA-Z0-9_]* { yylval = (list*)strdup(yytext); return VAR; }
-[0-9][0-9]*		  { yylval = NewNode(); yylval->value = atof(yytext); return NUM; }
-[0-9][0-9]*\.[0-9]+	  { yylval = NewNode(); yylval->value = atof(yytext); return NUM; }
+[a-zA-Z_][a-zA-Z0-9_]* { list *node = NewNode(); node->code = strdup(yytext); yylval = node; return VAR; }
+[0-9][0-9]*		  { yylval = NewNode(); yylval->value = atof(yytext); yylval->code=strdup(yytext); return NUM; }
+[0-9][0-9]*\.[0-9]+	  { yylval = NewNode(); yylval->value = atof(yytext); yylval->code=strdup(yytext); return NUM; }
 \n                        { return *yytext; }
 [ \t]*			  { /* Do nothing, drop them. */ }
 .                         { return *yytext; }

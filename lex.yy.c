@@ -835,17 +835,17 @@ YY_RULE_SETUP
 case 12:
 YY_RULE_SETUP
 #line 27 "calcilist.l"
-{ yylval = (list*)strdup(yytext); return VAR; }
+{ list *node = NewNode(); node->code = strdup(yytext); yylval = node; return VAR; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 28 "calcilist.l"
-{ yylval = NewNode(); yylval->value = atof(yytext); return NUM; }
+{ yylval = NewNode(); yylval->value = atof(yytext); yylval->code=strdup(yytext); return NUM; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 29 "calcilist.l"
-{ yylval = NewNode(); yylval->value = atof(yytext); return NUM; }
+{ yylval = NewNode(); yylval->value = atof(yytext); yylval->code=strdup(yytext); return NUM; }
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
