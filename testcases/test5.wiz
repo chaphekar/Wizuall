@@ -10,4 +10,7 @@ if(max y == 2){
 w = x
 } else{
 w = y
+p = [2 3 4]
+plot p w
+pause 10
 }
