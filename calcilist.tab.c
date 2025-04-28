@@ -827,9 +827,9 @@ static const yytype_int16 yyrline[] =
 {
        0,   317,   317,   318,   323,   327,   333,   345,   352,   353,
      356,   361,   366,   367,   368,   369,   370,   371,   372,   373,
-     374,   375,   376,   377,   378,   381,   382,   383,   385,   395,
-     396,   397,   399,   411,   424,   425,   428,   429,   432,   433,
-     436,   447,   452,   460,   465,   470,   475,   480,   485
+     374,   375,   376,   377,   378,   381,   386,   391,   395,   405,
+     406,   407,   409,   421,   434,   435,   438,   439,   442,   443,
+     446,   457,   462,   470,   475,   480,   485,   490,   495
 };
 #endif
 
@@ -1636,24 +1636,34 @@ yyreduce:
 
   case 25: /* TERM: TERM '*' FACTOR  */
 #line 381 "calcilist.y"
-                                                { }
-#line 1641 "calcilist.tab.c"
+                       {
+            yyval = NewNode();
+            yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 5);
+            sprintf(yyval->code, "%s .* %s", yyvsp[-2]->code, yyvsp[0]->code);
+        }
+#line 1645 "calcilist.tab.c"
     break;
 
   case 26: /* TERM: TERM '/' FACTOR  */
-#line 382 "calcilist.y"
-                              { }
-#line 1647 "calcilist.tab.c"
+#line 386 "calcilist.y"
+                       {
+            yyval = NewNode();
+            yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 5);
+            sprintf(yyval->code, "%s ./ %s", yyvsp[-2]->code, yyvsp[0]->code);
+        }
+#line 1655 "calcilist.tab.c"
     break;
 
   case 27: /* TERM: FACTOR  */
-#line 383 "calcilist.y"
-                                                { yyval = yyvsp[0]; }
-#line 1653 "calcilist.tab.c"
+#line 391 "calcilist.y"
+              { 
+            yyval = yyvsp[0]; 
+        }
+#line 1663 "calcilist.tab.c"
     break;
 
   case 28: /* FACTOR: VAR  */
-#line 385 "calcilist.y"
+#line 395 "calcilist.y"
              {
              Symbol *sym = lookup(yyvsp[0]->code);  // Use the identifier name from Symbol
              if (!sym) {
@@ -1664,29 +1674,29 @@ yyreduce:
              yyval = NewNode();
              yyval->code = strdup(yyvsp[0]->code);  // Store the variable's code
          }
-#line 1668 "calcilist.tab.c"
+#line 1678 "calcilist.tab.c"
     break;
 
   case 29: /* FACTOR: NUM  */
-#line 395 "calcilist.y"
+#line 405 "calcilist.y"
               { yyval = NewNode(); yyval->code = (char*)malloc(32); sprintf(yyval->code, "%g", yyvsp[0]->value); }
-#line 1674 "calcilist.tab.c"
+#line 1684 "calcilist.tab.c"
     break;
 
   case 30: /* FACTOR: '(' EXPR ')'  */
-#line 396 "calcilist.y"
+#line 406 "calcilist.y"
                        { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 4); sprintf(yyval->code, "(%s)", yyvsp[-1]->code); }
-#line 1680 "calcilist.tab.c"
+#line 1690 "calcilist.tab.c"
     break;
 
   case 31: /* FACTOR: '[' LIST ']'  */
-#line 397 "calcilist.y"
+#line 407 "calcilist.y"
                        { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 4); sprintf(yyval->code, "[%s]", yyvsp[-1]->code); }
-#line 1686 "calcilist.tab.c"
+#line 1696 "calcilist.tab.c"
     break;
 
   case 32: /* LIST: NUM EXTEND  */
-#line 399 "calcilist.y"
+#line 409 "calcilist.y"
                            { 
                 char buffer[32];
                 sprintf(buffer, "%g", yyvsp[-1]->value);
@@ -1699,11 +1709,11 @@ yyreduce:
                     yyval->code = strdup(buffer);  // Just use the number's code if there's no extension
                 }
             }
-#line 1703 "calcilist.tab.c"
+#line 1713 "calcilist.tab.c"
     break;
 
   case 33: /* LIST: '[' LIST ']' EXTEND  */
-#line 411 "calcilist.y"
+#line 421 "calcilist.y"
                                   { 
                 if (yyvsp[0]) {
                     yyval = (list*)malloc(sizeof(list));
@@ -1715,23 +1725,23 @@ yyreduce:
                     sprintf(yyval->code, "[%s]", yyvsp[-2]->code);  // Just wrap the list in brackets
                 }
             }
-#line 1719 "calcilist.tab.c"
+#line 1729 "calcilist.tab.c"
     break;
 
   case 34: /* EXTEND: LIST  */
-#line 424 "calcilist.y"
+#line 434 "calcilist.y"
                                                 { yyval = yyvsp[0]; }
-#line 1725 "calcilist.tab.c"
+#line 1735 "calcilist.tab.c"
     break;
 
   case 35: /* EXTEND: %empty  */
-#line 425 "calcilist.y"
+#line 435 "calcilist.y"
                                                 { yyval = NULL; }
-#line 1731 "calcilist.tab.c"
+#line 1741 "calcilist.tab.c"
     break;
 
   case 40: /* VARI: VAR  */
-#line 436 "calcilist.y"
+#line 446 "calcilist.y"
            {
              Symbol *sym = lookup(yyvsp[0]->code);  // Use the identifier name from Symbol
              if (!sym) {
@@ -1742,89 +1752,89 @@ yyreduce:
              yyval = NewNode();
              yyval->code = strdup(yyvsp[0]->code);  // Store the variable's code
          }
-#line 1746 "calcilist.tab.c"
+#line 1756 "calcilist.tab.c"
     break;
 
   case 41: /* STMT: IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE ELSE BLOCK NEWLINE  */
-#line 447 "calcilist.y"
+#line 457 "calcilist.y"
                                                                         {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-7]->code) + strlen(yyvsp[-4]->code) + strlen(yyvsp[-1]->code) + 40);
               sprintf(yyval->code, "if (%s)\n%s\nelse\n%s\nendif", yyvsp[-7]->code, yyvsp[-4]->code, yyvsp[-1]->code);
          }
-#line 1756 "calcilist.tab.c"
+#line 1766 "calcilist.tab.c"
     break;
 
   case 42: /* STMT: IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE  */
-#line 452 "calcilist.y"
+#line 462 "calcilist.y"
                                                      {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-4]->code) + strlen(yyvsp[-1]->code) + 20);
               sprintf(yyval->code, "if (%s)\n%s\nendif", yyvsp[-4]->code, yyvsp[-1]->code);
          }
-#line 1766 "calcilist.tab.c"
+#line 1776 "calcilist.tab.c"
     break;
 
   case 43: /* CONDITION: CONDITION AND CONDITION  */
-#line 460 "calcilist.y"
+#line 470 "calcilist.y"
                                   {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 5);
               sprintf(yyval->code, "%s && %s", yyvsp[-2]->code, yyvsp[0]->code);
           }
-#line 1776 "calcilist.tab.c"
+#line 1786 "calcilist.tab.c"
     break;
 
   case 44: /* CONDITION: CONDITION OR CONDITION  */
-#line 465 "calcilist.y"
+#line 475 "calcilist.y"
                                  {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 5);
               sprintf(yyval->code, "%s || %s", yyvsp[-2]->code, yyvsp[0]->code);
           }
-#line 1786 "calcilist.tab.c"
+#line 1796 "calcilist.tab.c"
     break;
 
   case 45: /* CONDITION: EXPR RELOP EXPR  */
-#line 470 "calcilist.y"
+#line 480 "calcilist.y"
                           {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + strlen(yyvsp[-1]->code) + 5);
               sprintf(yyval->code, "%s %s %s", yyvsp[-2]->code, yyvsp[-1]->code, yyvsp[0]->code);
           }
-#line 1796 "calcilist.tab.c"
+#line 1806 "calcilist.tab.c"
     break;
 
   case 46: /* CONDITION: '(' CONDITION ')'  */
-#line 475 "calcilist.y"
+#line 485 "calcilist.y"
                             {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 3);
               sprintf(yyval->code, "(%s)", yyvsp[-1]->code);
           }
-#line 1806 "calcilist.tab.c"
+#line 1816 "calcilist.tab.c"
     break;
 
   case 47: /* CONDITION: EXPR  */
-#line 480 "calcilist.y"
+#line 490 "calcilist.y"
                {
               yyval = yyvsp[0];
           }
-#line 1814 "calcilist.tab.c"
+#line 1824 "calcilist.tab.c"
     break;
 
   case 48: /* BLOCK: LBRACE NEWLINES LINES NEWLINES RBRACE  */
-#line 485 "calcilist.y"
+#line 495 "calcilist.y"
                                                 {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + 5);
               sprintf(yyval->code, "%s", yyvsp[-2]->code);
           }
-#line 1824 "calcilist.tab.c"
+#line 1834 "calcilist.tab.c"
     break;
 
 
-#line 1828 "calcilist.tab.c"
+#line 1838 "calcilist.tab.c"
 
       default: break;
     }
@@ -2017,7 +2027,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 491 "calcilist.y"
+#line 501 "calcilist.y"
 
 
 int main(int argc, char *argv[])

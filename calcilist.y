@@ -378,10 +378,20 @@ EXPR        :   EXPR    '+'     TERM  {
             |  PAUSE NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 5); sprintf($$->code, "pause(%s)", $2->code); }
             ;
 
-TERM        :   TERM    '*'     FACTOR          { }
-            | TERM '/' FACTOR { }
-            |   FACTOR                          { $$ = $1; }
-            ;
+TERM : TERM '*' FACTOR {
+            $$ = NewNode();
+            $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 5);
+            sprintf($$->code, "%s .* %s", $1->code, $3->code);
+        }
+     | TERM '/' FACTOR {
+            $$ = NewNode();
+            $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 5);
+            sprintf($$->code, "%s ./ %s", $1->code, $3->code);
+        }
+     | FACTOR { 
+            $$ = $1; 
+        }
+     ;
 FACTOR : VAR {
              Symbol *sym = lookup($1->code);  // Use the identifier name from Symbol
              if (!sym) {
