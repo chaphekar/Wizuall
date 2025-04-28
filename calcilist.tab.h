@@ -74,7 +74,8 @@ extern int yydebug;
     OR = 275,                      /* OR  */
     RELOP = 276,                   /* RELOP  */
     LBRACE = 277,                  /* LBRACE  */
-    RBRACE = 278                   /* RBRACE  */
+    RBRACE = 278,                  /* RBRACE  */
+    PAUSE = 279                    /* PAUSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

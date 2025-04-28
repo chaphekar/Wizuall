@@ -31,6 +31,7 @@ void yyerror(char*);
 ">"|"<"|"=="|"!="|">="|"<=" { yylval = NewNode(); yylval->code = strdup(yytext); return RELOP; }
 "{"     { return LBRACE; }
 "}"     { return RBRACE; }
+"pause" { return PAUSE; }
 
 [a-zA-Z_][a-zA-Z0-9_]* { list *node = NewNode(); node->code = strdup(yytext); yylval = node; return VAR; }
 [0-9][0-9]*		  { yylval = NewNode(); yylval->value = atof(yytext); yylval->code=strdup(yytext); return NUM; }

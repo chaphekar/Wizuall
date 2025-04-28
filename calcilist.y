@@ -311,6 +311,7 @@ list *lst; /* for debugging. temp. */
 %token AND OR
 %token RELOP
 %token LBRACE RBRACE
+%token PAUSE
 
 %%
 START : LINES { printf("%s\n", $1->code); }
@@ -337,14 +338,14 @@ LINE        : VAR '=' EXPR '\n' {
             // printf("%s = %s\n", $1->code, $3->code);
             $$ = NewNode();
             $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 5);
-            sprintf($$->code, "%s = %s\n", $1->code, $3->code);
+            sprintf($$->code, "%s = %s", $1->code, $3->code);
         //   append_to_file("output.m", "%s = %s", $1->code, $3->code);
 
       }
             | EXPR '\n' { 
                 $$ = NewNode();
                 $$->code = (char*)malloc(strlen($1->code) + 3);
-                sprintf($$->code, "%s\n", $1->code);
+                sprintf($$->code, "%s", $1->code);
                 // printf("%s\n", $1->code);
                 // append_to_file("output.m", "%s", $1->code);
             }
@@ -374,6 +375,7 @@ EXPR        :   EXPR    '+'     TERM  {
             |  PLOT VARI VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 13); sprintf($$->code, "plot(%s, %s)", $2->code, $3->code); }
             |  HISTOGRAM VARI NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 12); sprintf($$->code, "hist(%s, %s)", $2->code, $3->code); }
             |  POWER VARI NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 5); sprintf($$->code, "%s.^%s", $2->code, $3->code); }
+            |  PAUSE NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 5); sprintf($$->code, "pause(%s)", $2->code); }
             ;
 
 TERM        :   TERM    '*'     FACTOR          { }
@@ -445,12 +447,12 @@ VARI : VAR {
 STMT    : IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE ELSE BLOCK NEWLINE {
               $$ = NewNode();
               $$->code = (char*)malloc(strlen($3->code) + strlen($6->code) + strlen($9->code) + 40);
-              sprintf($$->code, "if (%s)\n%selse\n%sendif", $3->code, $6->code, $9->code);
+              sprintf($$->code, "if (%s)\n%s\nelse\n%s\nendif", $3->code, $6->code, $9->code);
          }
         | IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE {
               $$ = NewNode();
               $$->code = (char*)malloc(strlen($3->code) + strlen($6->code) + 20);
-              sprintf($$->code, "if (%s)\n%sendif", $3->code, $6->code);
+              sprintf($$->code, "if (%s)\n%s\nendif", $3->code, $6->code);
          }
         ;
 

@@ -412,31 +412,32 @@ enum yysymbol_kind_t
   YYSYMBOL_RELOP = 21,                     /* RELOP  */
   YYSYMBOL_LBRACE = 22,                    /* LBRACE  */
   YYSYMBOL_RBRACE = 23,                    /* RBRACE  */
-  YYSYMBOL_24_ = 24,                       /* '='  */
-  YYSYMBOL_25_n_ = 25,                     /* '\n'  */
-  YYSYMBOL_26_ = 26,                       /* '+'  */
-  YYSYMBOL_27_ = 27,                       /* '-'  */
-  YYSYMBOL_28_ = 28,                       /* '*'  */
-  YYSYMBOL_29_ = 29,                       /* '/'  */
-  YYSYMBOL_30_ = 30,                       /* '('  */
-  YYSYMBOL_31_ = 31,                       /* ')'  */
-  YYSYMBOL_32_ = 32,                       /* '['  */
-  YYSYMBOL_33_ = 33,                       /* ']'  */
-  YYSYMBOL_YYACCEPT = 34,                  /* $accept  */
-  YYSYMBOL_START = 35,                     /* START  */
-  YYSYMBOL_LINES = 36,                     /* LINES  */
-  YYSYMBOL_LINE = 37,                      /* LINE  */
-  YYSYMBOL_EXPR = 38,                      /* EXPR  */
-  YYSYMBOL_TERM = 39,                      /* TERM  */
-  YYSYMBOL_FACTOR = 40,                    /* FACTOR  */
-  YYSYMBOL_LIST = 41,                      /* LIST  */
-  YYSYMBOL_EXTEND = 42,                    /* EXTEND  */
-  YYSYMBOL_NEWLINES = 43,                  /* NEWLINES  */
-  YYSYMBOL_NEWLINE = 44,                   /* NEWLINE  */
-  YYSYMBOL_VARI = 45,                      /* VARI  */
-  YYSYMBOL_STMT = 46,                      /* STMT  */
-  YYSYMBOL_CONDITION = 47,                 /* CONDITION  */
-  YYSYMBOL_BLOCK = 48                      /* BLOCK  */
+  YYSYMBOL_PAUSE = 24,                     /* PAUSE  */
+  YYSYMBOL_25_ = 25,                       /* '='  */
+  YYSYMBOL_26_n_ = 26,                     /* '\n'  */
+  YYSYMBOL_27_ = 27,                       /* '+'  */
+  YYSYMBOL_28_ = 28,                       /* '-'  */
+  YYSYMBOL_29_ = 29,                       /* '*'  */
+  YYSYMBOL_30_ = 30,                       /* '/'  */
+  YYSYMBOL_31_ = 31,                       /* '('  */
+  YYSYMBOL_32_ = 32,                       /* ')'  */
+  YYSYMBOL_33_ = 33,                       /* '['  */
+  YYSYMBOL_34_ = 34,                       /* ']'  */
+  YYSYMBOL_YYACCEPT = 35,                  /* $accept  */
+  YYSYMBOL_START = 36,                     /* START  */
+  YYSYMBOL_LINES = 37,                     /* LINES  */
+  YYSYMBOL_LINE = 38,                      /* LINE  */
+  YYSYMBOL_EXPR = 39,                      /* EXPR  */
+  YYSYMBOL_TERM = 40,                      /* TERM  */
+  YYSYMBOL_FACTOR = 41,                    /* FACTOR  */
+  YYSYMBOL_LIST = 42,                      /* LIST  */
+  YYSYMBOL_EXTEND = 43,                    /* EXTEND  */
+  YYSYMBOL_NEWLINES = 44,                  /* NEWLINES  */
+  YYSYMBOL_NEWLINE = 45,                   /* NEWLINE  */
+  YYSYMBOL_VARI = 46,                      /* VARI  */
+  YYSYMBOL_STMT = 47,                      /* STMT  */
+  YYSYMBOL_CONDITION = 48,                 /* CONDITION  */
+  YYSYMBOL_BLOCK = 49                      /* BLOCK  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -762,21 +763,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  44
+#define YYFINAL  46
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   162
+#define YYLAST   172
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  34
+#define YYNTOKENS  35
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  15
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  47
+#define YYNRULES  48
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  98
+#define YYNSTATES  100
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   278
+#define YYMAXUTOK   279
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -791,15 +792,15 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      25,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      26,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      30,    31,    28,    26,     2,    27,     2,    29,     2,     2,
+      31,    32,    29,    27,     2,    28,     2,    30,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    24,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    25,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    32,     2,    33,     2,     2,     2,     2,     2,     2,
+       2,    33,     2,    34,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -817,18 +818,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22,    23
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   316,   316,   317,   322,   326,   332,   344,   351,   352,
-     355,   360,   365,   366,   367,   368,   369,   370,   371,   372,
-     373,   374,   375,   376,   379,   380,   381,   383,   393,   394,
-     395,   397,   409,   422,   423,   426,   427,   430,   431,   434,
-     445,   450,   458,   463,   468,   473,   478,   483
+       0,   317,   317,   318,   323,   327,   333,   345,   352,   353,
+     356,   361,   366,   367,   368,   369,   370,   371,   372,   373,
+     374,   375,   376,   377,   378,   381,   382,   383,   385,   395,
+     396,   397,   399,   411,   424,   425,   428,   429,   432,   433,
+     436,   447,   452,   460,   465,   470,   475,   480,   485
 };
 #endif
 
@@ -847,10 +848,10 @@ static const char *const yytname[] =
   "\"end of file\"", "error", "\"invalid token\"", "PLOT", "NUM", "VAR",
   "FUNC", "MEAN", "MAX", "MIN", "SUM", "MOVMEAN", "REVERSE", "DOTPRODUCT",
   "SCATTERPLOT", "HISTOGRAM", "POWER", "IF", "ELSE", "AND", "OR", "RELOP",
-  "LBRACE", "RBRACE", "'='", "'\\n'", "'+'", "'-'", "'*'", "'/'", "'('",
-  "')'", "'['", "']'", "$accept", "START", "LINES", "LINE", "EXPR", "TERM",
-  "FACTOR", "LIST", "EXTEND", "NEWLINES", "NEWLINE", "VARI", "STMT",
-  "CONDITION", "BLOCK", YY_NULLPTR
+  "LBRACE", "RBRACE", "PAUSE", "'='", "'\\n'", "'+'", "'-'", "'*'", "'/'",
+  "'('", "')'", "'['", "']'", "$accept", "START", "LINES", "LINE", "EXPR",
+  "TERM", "FACTOR", "LIST", "EXTEND", "NEWLINES", "NEWLINE", "VARI",
+  "STMT", "CONDITION", "BLOCK", YY_NULLPTR
 };
 
 static const char *
@@ -860,7 +861,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-71)
+#define YYPACT_NINF (-72)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -874,16 +875,16 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-      37,    12,   -71,    15,    12,    12,    12,    12,    12,    12,
-      12,    12,    12,    12,    -8,   -71,   100,    24,    61,    37,
-     -71,    92,     8,   -71,   -71,   -71,    12,   100,   -71,   -71,
-     -71,   -71,    62,   -71,    12,    12,    64,    72,   130,   -71,
-      65,    24,    24,    66,   -71,   -71,   -71,    25,    25,    25,
-      25,   -71,    95,   -71,   -71,   -71,   -71,   -71,   130,    44,
-      -5,   -71,   -71,   -71,    68,   -71,     8,     8,   -71,   -71,
-     -71,    67,     0,   100,   130,   130,    81,    24,   -71,    63,
-     104,   104,   -71,    75,   -71,   102,    81,   102,    37,   110,
-     -71,    70,    75,   102,   106,    81,   -71,   -71
+      38,    11,   -72,    -6,    11,    11,    11,    11,    11,    11,
+      11,    11,    11,    11,    -9,    23,   -72,   102,    24,    68,
+      38,   -72,    39,    64,   -72,   -72,   -72,    11,   102,   -72,
+     -72,   -72,   -72,    59,   -72,    11,    11,    66,    73,   133,
+     -72,   -72,     8,    24,    24,    58,   -72,   -72,   -72,    25,
+      25,    25,    25,   -72,    63,   -72,   -72,   -72,   -72,   -72,
+     133,    -7,   100,   -72,   -72,   -72,    62,   -72,    64,    64,
+     -72,   -72,   -72,   140,   131,   102,   133,   133,    46,    24,
+     -72,    10,    79,    79,   -72,    81,   -72,    82,    46,    82,
+      38,   105,   -72,    71,    81,    82,   101,    46,   -72,   -72
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -891,30 +892,30 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       5,     0,    28,    27,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     9,     0,     0,     0,     2,
-       4,     0,    12,    26,     8,    39,     0,     0,    13,    14,
-      15,    16,     0,    18,     0,     0,     0,     0,     0,    27,
-       0,    34,     0,     0,     1,     3,     7,     0,     0,     0,
-       0,    21,     0,    17,    19,    20,    22,    23,     0,    46,
-       0,    29,    33,    31,     0,    30,    10,    11,    24,    25,
-       6,    46,     0,     0,     0,     0,    38,    34,    45,    44,
-      42,    43,    37,     0,    32,    36,    38,    36,     5,    41,
-      35,    36,     0,     9,     0,    38,    47,    40
+       5,     0,    29,    28,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     9,     0,     0,     0,
+       2,     4,     0,    12,    27,     8,    40,     0,     0,    13,
+      14,    15,    16,     0,    18,     0,     0,     0,     0,     0,
+      24,    28,     0,    35,     0,     0,     1,     3,     7,     0,
+       0,     0,     0,    21,     0,    17,    19,    20,    22,    23,
+       0,    47,     0,    30,    34,    32,     0,    31,    10,    11,
+      25,    26,     6,    47,     0,     0,     0,     0,    39,    35,
+      46,    45,    43,    44,    38,     0,    33,    37,    39,    37,
+       5,    42,    36,    37,     0,     9,     0,    39,    48,    41
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -71,   -71,    43,   -19,   -15,    16,    76,    -4,    59,   -64,
-     -70,    -2,   -71,   -40,    55
+     -72,   -72,    35,   -20,   -16,    51,    70,    -5,    48,   -69,
+     -71,    -2,   -72,   -45,    34
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,    18,    19,    20,    21,    22,    23,    62,    63,    90,
-      83,    26,    24,    60,    86
+       0,    19,    20,    21,    22,    23,    24,    64,    65,    92,
+      85,    27,    25,    62,    88
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -922,44 +923,46 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      45,    40,    28,    29,    30,    31,    32,    33,    34,    35,
-      36,    37,    52,    43,    74,    75,    89,    25,    72,    74,
-      75,    88,    38,    59,    51,    97,    76,    94,    41,     2,
-      39,    78,    54,    55,    80,    81,    49,    50,    64,    27,
-       1,     2,     3,    71,     4,     5,     6,     7,     8,     9,
-      10,    11,    12,    13,    14,    16,    42,    17,    79,    59,
-      59,    44,    15,    66,    67,    73,    53,    16,    56,    17,
-      47,    48,    45,     1,     2,     3,    57,     4,     5,     6,
-       7,     8,     9,    10,    11,    12,    13,    14,    73,    47,
-      48,    47,    48,    47,    48,    93,    61,    85,    61,    65,
-      16,    77,    17,     1,     2,    39,    82,     4,     5,     6,
-       7,     8,     9,    10,    11,    12,    13,    46,    47,    48,
-      70,    47,    48,    74,    75,    68,    69,    87,    92,    96,
-      16,    91,    17,     1,     2,    39,    84,     4,     5,     6,
-       7,     8,     9,    10,    11,    12,    13,    95,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      58,     0,    17
+      47,    42,    29,    30,    31,    32,    33,    34,    35,    36,
+      37,    38,    54,    45,    75,    74,    26,    91,    90,    28,
+      49,    50,    39,    61,    96,    53,    99,    40,    43,     2,
+      41,    82,    83,    56,    57,    49,    50,    49,    50,    66,
+      63,     1,     2,     3,    73,     4,     5,     6,     7,     8,
+       9,    10,    11,    12,    13,    14,    17,    44,    18,    81,
+      61,    61,    15,    55,    16,    48,    49,    50,    46,    17,
+      58,    18,    84,    47,     1,     2,     3,    59,     4,     5,
+       6,     7,     8,     9,    10,    11,    12,    13,    14,    72,
+      49,    50,    67,    51,    52,    15,    79,    95,    76,    77,
+      68,    69,    17,    87,    18,     1,     2,    41,    89,     4,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    76,
+      77,    70,    71,    94,    98,    93,    15,    86,    97,     0,
+       0,     0,    78,    17,     0,    18,     1,     2,    41,     0,
+       4,     5,     6,     7,     8,     9,    10,    11,    12,    13,
+      76,    77,     0,     0,     0,     0,     0,    15,     0,     0,
+       0,    75,     0,    80,    60,     0,    18,    49,    50,     0,
+       0,     0,    63
 };
 
 static const yytype_int8 yycheck[] =
 {
-      19,    16,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    27,    17,    19,    20,    86,     5,    58,    19,
-      20,    85,    30,    38,    26,    95,    31,    91,     4,     4,
-       5,    31,    34,    35,    74,    75,    28,    29,    42,    24,
-       3,     4,     5,    58,     7,     8,     9,    10,    11,    12,
-      13,    14,    15,    16,    17,    30,    32,    32,    73,    74,
-      75,     0,    25,    47,    48,    21,     4,    30,     4,    32,
-      26,    27,    91,     3,     4,     5,     4,     7,     8,     9,
-      10,    11,    12,    13,    14,    15,    16,    17,    21,    26,
-      27,    26,    27,    26,    27,    25,    31,    22,    31,    33,
-      30,    33,    32,     3,     4,     5,    25,     7,     8,     9,
-      10,    11,    12,    13,    14,    15,    16,    25,    26,    27,
-      25,    26,    27,    19,    20,    49,    50,    25,    18,    23,
-      30,    88,    32,     3,     4,     5,    77,     7,     8,     9,
-      10,    11,    12,    13,    14,    15,    16,    92,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      30,    -1,    32
+      20,    17,     4,     5,     6,     7,     8,     9,    10,    11,
+      12,    13,    28,    18,    21,    60,     5,    88,    87,    25,
+      27,    28,    31,    39,    93,    27,    97,     4,     4,     4,
+       5,    76,    77,    35,    36,    27,    28,    27,    28,    44,
+      32,     3,     4,     5,    60,     7,     8,     9,    10,    11,
+      12,    13,    14,    15,    16,    17,    31,    33,    33,    75,
+      76,    77,    24,     4,    26,    26,    27,    28,     0,    31,
+       4,    33,    26,    93,     3,     4,     5,     4,     7,     8,
+       9,    10,    11,    12,    13,    14,    15,    16,    17,    26,
+      27,    28,    34,    29,    30,    24,    34,    26,    19,    20,
+      49,    50,    31,    22,    33,     3,     4,     5,    26,     7,
+       8,     9,    10,    11,    12,    13,    14,    15,    16,    19,
+      20,    51,    52,    18,    23,    90,    24,    79,    94,    -1,
+      -1,    -1,    32,    31,    -1,    33,     3,     4,     5,    -1,
+       7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+      19,    20,    -1,    -1,    -1,    -1,    -1,    24,    -1,    -1,
+      -1,    21,    -1,    32,    31,    -1,    33,    27,    28,    -1,
+      -1,    -1,    32
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -967,25 +970,25 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,     3,     4,     5,     7,     8,     9,    10,    11,    12,
-      13,    14,    15,    16,    17,    25,    30,    32,    35,    36,
-      37,    38,    39,    40,    46,     5,    45,    24,    45,    45,
-      45,    45,    45,    45,    45,    45,    45,    45,    30,     5,
-      38,     4,    32,    41,     0,    37,    25,    26,    27,    28,
-      29,    45,    38,     4,    45,    45,     4,     4,    30,    38,
-      47,    31,    41,    42,    41,    33,    39,    39,    40,    40,
-      25,    38,    47,    21,    19,    20,    31,    33,    31,    38,
-      47,    47,    25,    44,    42,    22,    48,    25,    43,    44,
-      43,    36,    18,    25,    43,    48,    23,    44
+      13,    14,    15,    16,    17,    24,    26,    31,    33,    36,
+      37,    38,    39,    40,    41,    47,     5,    46,    25,    46,
+      46,    46,    46,    46,    46,    46,    46,    46,    46,    31,
+       4,     5,    39,     4,    33,    42,     0,    38,    26,    27,
+      28,    29,    30,    46,    39,     4,    46,    46,     4,     4,
+      31,    39,    48,    32,    42,    43,    42,    34,    40,    40,
+      41,    41,    26,    39,    48,    21,    19,    20,    32,    34,
+      32,    39,    48,    48,    26,    45,    43,    22,    49,    26,
+      44,    45,    44,    37,    18,    26,    44,    49,    23,    45
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    34,    35,    36,    36,    36,    37,    37,    37,    37,
-      38,    38,    38,    38,    38,    38,    38,    38,    38,    38,
-      38,    38,    38,    38,    39,    39,    39,    40,    40,    40,
-      40,    41,    41,    42,    42,    43,    43,    44,    44,    45,
-      46,    46,    47,    47,    47,    47,    47,    48
+       0,    35,    36,    37,    37,    37,    38,    38,    38,    38,
+      39,    39,    39,    39,    39,    39,    39,    39,    39,    39,
+      39,    39,    39,    39,    39,    40,    40,    40,    41,    41,
+      41,    41,    42,    42,    43,    43,    44,    44,    45,    45,
+      46,    47,    47,    48,    48,    48,    48,    48,    49
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -993,9 +996,9 @@ static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     1,     0,     4,     2,     1,     1,
        3,     3,     1,     2,     2,     2,     2,     3,     2,     3,
-       3,     3,     3,     3,     3,     3,     1,     1,     1,     3,
-       3,     2,     4,     1,     0,     2,     0,     1,     0,     1,
-      10,     7,     3,     3,     3,     3,     1,     5
+       3,     3,     3,     3,     2,     3,     3,     1,     1,     1,
+       3,     3,     2,     4,     1,     0,     2,     0,     1,     0,
+       1,    10,     7,     3,     3,     3,     3,     1,     5
 };
 
 
@@ -1459,41 +1462,41 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* START: LINES  */
-#line 316 "calcilist.y"
+#line 317 "calcilist.y"
               { printf("%s\n", yyvsp[0]->code); }
-#line 1465 "calcilist.tab.c"
+#line 1468 "calcilist.tab.c"
     break;
 
   case 3: /* LINES: LINES LINE  */
-#line 317 "calcilist.y"
+#line 318 "calcilist.y"
                    {
     yyval = NewNode();
     yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + strlen(yyvsp[0]->code) + 2);
     sprintf(yyval->code, "%s\n%s", yyvsp[-1]->code, yyvsp[0]->code);
 }
-#line 1475 "calcilist.tab.c"
+#line 1478 "calcilist.tab.c"
     break;
 
   case 4: /* LINES: LINE  */
-#line 322 "calcilist.y"
+#line 323 "calcilist.y"
        {
     yyval = NewNode();
     yyval->code = strdup(yyvsp[0]->code);
 }
-#line 1484 "calcilist.tab.c"
+#line 1487 "calcilist.tab.c"
     break;
 
   case 5: /* LINES: %empty  */
-#line 326 "calcilist.y"
+#line 327 "calcilist.y"
               {
     yyval = NewNode();
     yyval->code = strdup(""); 
 }
-#line 1493 "calcilist.tab.c"
+#line 1496 "calcilist.tab.c"
     break;
 
   case 6: /* LINE: VAR '=' EXPR '\n'  */
-#line 332 "calcilist.y"
+#line 333 "calcilist.y"
                                 {
           Symbol *sym = lookup(yyvsp[-3]->code);  // Use the identifier name from Symbol
           if (!sym) sym = insert(yyvsp[-3]->code, NULL); // Insert if not found
@@ -1502,149 +1505,155 @@ yyreduce:
             // printf("%s = %s\n", $1->code, $3->code);
             yyval = NewNode();
             yyval->code = (char*)malloc(strlen(yyvsp[-3]->code) + strlen(yyvsp[-1]->code) + 5);
-            sprintf(yyval->code, "%s = %s\n", yyvsp[-3]->code, yyvsp[-1]->code);
+            sprintf(yyval->code, "%s = %s", yyvsp[-3]->code, yyvsp[-1]->code);
         //   append_to_file("output.m", "%s = %s", $1->code, $3->code);
 
       }
-#line 1510 "calcilist.tab.c"
+#line 1513 "calcilist.tab.c"
     break;
 
   case 7: /* LINE: EXPR '\n'  */
-#line 344 "calcilist.y"
+#line 345 "calcilist.y"
                         { 
                 yyval = NewNode();
                 yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 3);
-                sprintf(yyval->code, "%s\n", yyvsp[-1]->code);
+                sprintf(yyval->code, "%s", yyvsp[-1]->code);
                 // printf("%s\n", $1->code);
                 // append_to_file("output.m", "%s", $1->code);
             }
-#line 1522 "calcilist.tab.c"
+#line 1525 "calcilist.tab.c"
     break;
 
   case 8: /* LINE: STMT  */
-#line 351 "calcilist.y"
+#line 352 "calcilist.y"
                    { yyval = NewNode(); yyval->code = strdup(yyvsp[0]->code); }
-#line 1528 "calcilist.tab.c"
+#line 1531 "calcilist.tab.c"
     break;
 
   case 9: /* LINE: '\n'  */
-#line 352 "calcilist.y"
+#line 353 "calcilist.y"
                    { yyval = NewNode(); yyval->code = strdup(""); }
-#line 1534 "calcilist.tab.c"
+#line 1537 "calcilist.tab.c"
     break;
 
   case 10: /* EXPR: EXPR '+' TERM  */
-#line 355 "calcilist.y"
+#line 356 "calcilist.y"
                                       { 
                 yyval = NewNode();
                 yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 4);
                 sprintf(yyval->code, "%s + %s", yyvsp[-2]->code, yyvsp[0]->code);
             }
-#line 1544 "calcilist.tab.c"
+#line 1547 "calcilist.tab.c"
     break;
 
   case 11: /* EXPR: EXPR '-' TERM  */
-#line 360 "calcilist.y"
+#line 361 "calcilist.y"
                             { 
                 yyval = NewNode();
                 yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 4);
                 sprintf(yyval->code, "%s - %s", yyvsp[-2]->code, yyvsp[0]->code);
             }
-#line 1554 "calcilist.tab.c"
+#line 1557 "calcilist.tab.c"
     break;
 
   case 12: /* EXPR: TERM  */
-#line 365 "calcilist.y"
+#line 366 "calcilist.y"
                                                 { yyval = yyvsp[0]; }
-#line 1560 "calcilist.tab.c"
+#line 1563 "calcilist.tab.c"
     break;
 
   case 13: /* EXPR: MEAN VARI  */
-#line 366 "calcilist.y"
+#line 367 "calcilist.y"
                          { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "mean(%s)", yyvsp[0]->code); }
-#line 1566 "calcilist.tab.c"
+#line 1569 "calcilist.tab.c"
     break;
 
   case 14: /* EXPR: MAX VARI  */
-#line 367 "calcilist.y"
+#line 368 "calcilist.y"
                         { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "max(%s)", yyvsp[0]->code); }
-#line 1572 "calcilist.tab.c"
+#line 1575 "calcilist.tab.c"
     break;
 
   case 15: /* EXPR: MIN VARI  */
-#line 368 "calcilist.y"
+#line 369 "calcilist.y"
                         { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "min(%s)", yyvsp[0]->code); }
-#line 1578 "calcilist.tab.c"
+#line 1581 "calcilist.tab.c"
     break;
 
   case 16: /* EXPR: SUM VARI  */
-#line 369 "calcilist.y"
+#line 370 "calcilist.y"
                         { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "sum(%s)", yyvsp[0]->code); }
-#line 1584 "calcilist.tab.c"
+#line 1587 "calcilist.tab.c"
     break;
 
   case 17: /* EXPR: MOVMEAN VARI NUM  */
-#line 370 "calcilist.y"
+#line 371 "calcilist.y"
                                 { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "movmean(%s, %s)", yyvsp[-1]->code, yyvsp[0]->code); }
-#line 1590 "calcilist.tab.c"
+#line 1593 "calcilist.tab.c"
     break;
 
   case 18: /* EXPR: REVERSE VARI  */
-#line 371 "calcilist.y"
+#line 372 "calcilist.y"
                             { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "flip(%s)", yyvsp[0]->code); }
-#line 1596 "calcilist.tab.c"
+#line 1599 "calcilist.tab.c"
     break;
 
   case 19: /* EXPR: DOTPRODUCT VARI VARI  */
-#line 372 "calcilist.y"
+#line 373 "calcilist.y"
                                     { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + strlen(yyvsp[0]->code) + 10); sprintf(yyval->code, "dot(%s, %s)", yyvsp[-1]->code, yyvsp[0]->code); }
-#line 1602 "calcilist.tab.c"
+#line 1605 "calcilist.tab.c"
     break;
 
   case 20: /* EXPR: SCATTERPLOT VARI VARI  */
-#line 373 "calcilist.y"
+#line 374 "calcilist.y"
                                      { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + strlen(yyvsp[0]->code) + 13); sprintf(yyval->code, "scatter(%s, %s)", yyvsp[-1]->code, yyvsp[0]->code); }
-#line 1608 "calcilist.tab.c"
+#line 1611 "calcilist.tab.c"
     break;
 
   case 21: /* EXPR: PLOT VARI VARI  */
-#line 374 "calcilist.y"
+#line 375 "calcilist.y"
                               { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + strlen(yyvsp[0]->code) + 13); sprintf(yyval->code, "plot(%s, %s)", yyvsp[-1]->code, yyvsp[0]->code); }
-#line 1614 "calcilist.tab.c"
+#line 1617 "calcilist.tab.c"
     break;
 
   case 22: /* EXPR: HISTOGRAM VARI NUM  */
-#line 375 "calcilist.y"
+#line 376 "calcilist.y"
                                   { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + strlen(yyvsp[0]->code) + 12); sprintf(yyval->code, "hist(%s, %s)", yyvsp[-1]->code, yyvsp[0]->code); }
-#line 1620 "calcilist.tab.c"
+#line 1623 "calcilist.tab.c"
     break;
 
   case 23: /* EXPR: POWER VARI NUM  */
-#line 376 "calcilist.y"
+#line 377 "calcilist.y"
                               { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 5); sprintf(yyval->code, "%s.^%s", yyvsp[-1]->code, yyvsp[0]->code); }
-#line 1626 "calcilist.tab.c"
+#line 1629 "calcilist.tab.c"
     break;
 
-  case 24: /* TERM: TERM '*' FACTOR  */
-#line 379 "calcilist.y"
-                                                { }
-#line 1632 "calcilist.tab.c"
+  case 24: /* EXPR: PAUSE NUM  */
+#line 378 "calcilist.y"
+                         { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[0]->code) + 5); sprintf(yyval->code, "pause(%s)", yyvsp[0]->code); }
+#line 1635 "calcilist.tab.c"
     break;
 
-  case 25: /* TERM: TERM '/' FACTOR  */
-#line 380 "calcilist.y"
-                              { }
-#line 1638 "calcilist.tab.c"
-    break;
-
-  case 26: /* TERM: FACTOR  */
+  case 25: /* TERM: TERM '*' FACTOR  */
 #line 381 "calcilist.y"
-                                                { yyval = yyvsp[0]; }
-#line 1644 "calcilist.tab.c"
+                                                { }
+#line 1641 "calcilist.tab.c"
     break;
 
-  case 27: /* FACTOR: VAR  */
+  case 26: /* TERM: TERM '/' FACTOR  */
+#line 382 "calcilist.y"
+                              { }
+#line 1647 "calcilist.tab.c"
+    break;
+
+  case 27: /* TERM: FACTOR  */
 #line 383 "calcilist.y"
+                                                { yyval = yyvsp[0]; }
+#line 1653 "calcilist.tab.c"
+    break;
+
+  case 28: /* FACTOR: VAR  */
+#line 385 "calcilist.y"
              {
              Symbol *sym = lookup(yyvsp[0]->code);  // Use the identifier name from Symbol
              if (!sym) {
@@ -1655,29 +1664,29 @@ yyreduce:
              yyval = NewNode();
              yyval->code = strdup(yyvsp[0]->code);  // Store the variable's code
          }
-#line 1659 "calcilist.tab.c"
+#line 1668 "calcilist.tab.c"
     break;
 
-  case 28: /* FACTOR: NUM  */
-#line 393 "calcilist.y"
-              { yyval = NewNode(); yyval->code = (char*)malloc(32); sprintf(yyval->code, "%g", yyvsp[0]->value); }
-#line 1665 "calcilist.tab.c"
-    break;
-
-  case 29: /* FACTOR: '(' EXPR ')'  */
-#line 394 "calcilist.y"
-                       { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 4); sprintf(yyval->code, "(%s)", yyvsp[-1]->code); }
-#line 1671 "calcilist.tab.c"
-    break;
-
-  case 30: /* FACTOR: '[' LIST ']'  */
+  case 29: /* FACTOR: NUM  */
 #line 395 "calcilist.y"
-                       { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 4); sprintf(yyval->code, "[%s]", yyvsp[-1]->code); }
-#line 1677 "calcilist.tab.c"
+              { yyval = NewNode(); yyval->code = (char*)malloc(32); sprintf(yyval->code, "%g", yyvsp[0]->value); }
+#line 1674 "calcilist.tab.c"
     break;
 
-  case 31: /* LIST: NUM EXTEND  */
+  case 30: /* FACTOR: '(' EXPR ')'  */
+#line 396 "calcilist.y"
+                       { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 4); sprintf(yyval->code, "(%s)", yyvsp[-1]->code); }
+#line 1680 "calcilist.tab.c"
+    break;
+
+  case 31: /* FACTOR: '[' LIST ']'  */
 #line 397 "calcilist.y"
+                       { yyval = NewNode(); yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 4); sprintf(yyval->code, "[%s]", yyvsp[-1]->code); }
+#line 1686 "calcilist.tab.c"
+    break;
+
+  case 32: /* LIST: NUM EXTEND  */
+#line 399 "calcilist.y"
                            { 
                 char buffer[32];
                 sprintf(buffer, "%g", yyvsp[-1]->value);
@@ -1690,11 +1699,11 @@ yyreduce:
                     yyval->code = strdup(buffer);  // Just use the number's code if there's no extension
                 }
             }
-#line 1694 "calcilist.tab.c"
+#line 1703 "calcilist.tab.c"
     break;
 
-  case 32: /* LIST: '[' LIST ']' EXTEND  */
-#line 409 "calcilist.y"
+  case 33: /* LIST: '[' LIST ']' EXTEND  */
+#line 411 "calcilist.y"
                                   { 
                 if (yyvsp[0]) {
                     yyval = (list*)malloc(sizeof(list));
@@ -1706,23 +1715,23 @@ yyreduce:
                     sprintf(yyval->code, "[%s]", yyvsp[-2]->code);  // Just wrap the list in brackets
                 }
             }
-#line 1710 "calcilist.tab.c"
+#line 1719 "calcilist.tab.c"
     break;
 
-  case 33: /* EXTEND: LIST  */
-#line 422 "calcilist.y"
+  case 34: /* EXTEND: LIST  */
+#line 424 "calcilist.y"
                                                 { yyval = yyvsp[0]; }
-#line 1716 "calcilist.tab.c"
+#line 1725 "calcilist.tab.c"
     break;
 
-  case 34: /* EXTEND: %empty  */
-#line 423 "calcilist.y"
+  case 35: /* EXTEND: %empty  */
+#line 425 "calcilist.y"
                                                 { yyval = NULL; }
-#line 1722 "calcilist.tab.c"
+#line 1731 "calcilist.tab.c"
     break;
 
-  case 39: /* VARI: VAR  */
-#line 434 "calcilist.y"
+  case 40: /* VARI: VAR  */
+#line 436 "calcilist.y"
            {
              Symbol *sym = lookup(yyvsp[0]->code);  // Use the identifier name from Symbol
              if (!sym) {
@@ -1733,89 +1742,89 @@ yyreduce:
              yyval = NewNode();
              yyval->code = strdup(yyvsp[0]->code);  // Store the variable's code
          }
-#line 1737 "calcilist.tab.c"
+#line 1746 "calcilist.tab.c"
     break;
 
-  case 40: /* STMT: IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE ELSE BLOCK NEWLINE  */
-#line 445 "calcilist.y"
+  case 41: /* STMT: IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE ELSE BLOCK NEWLINE  */
+#line 447 "calcilist.y"
                                                                         {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-7]->code) + strlen(yyvsp[-4]->code) + strlen(yyvsp[-1]->code) + 40);
-              sprintf(yyval->code, "if (%s)\n%selse\n%sendif", yyvsp[-7]->code, yyvsp[-4]->code, yyvsp[-1]->code);
+              sprintf(yyval->code, "if (%s)\n%s\nelse\n%s\nendif", yyvsp[-7]->code, yyvsp[-4]->code, yyvsp[-1]->code);
          }
-#line 1747 "calcilist.tab.c"
+#line 1756 "calcilist.tab.c"
     break;
 
-  case 41: /* STMT: IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE  */
-#line 450 "calcilist.y"
+  case 42: /* STMT: IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE  */
+#line 452 "calcilist.y"
                                                      {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-4]->code) + strlen(yyvsp[-1]->code) + 20);
-              sprintf(yyval->code, "if (%s)\n%sendif", yyvsp[-4]->code, yyvsp[-1]->code);
+              sprintf(yyval->code, "if (%s)\n%s\nendif", yyvsp[-4]->code, yyvsp[-1]->code);
          }
-#line 1757 "calcilist.tab.c"
+#line 1766 "calcilist.tab.c"
     break;
 
-  case 42: /* CONDITION: CONDITION AND CONDITION  */
-#line 458 "calcilist.y"
+  case 43: /* CONDITION: CONDITION AND CONDITION  */
+#line 460 "calcilist.y"
                                   {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 5);
               sprintf(yyval->code, "%s && %s", yyvsp[-2]->code, yyvsp[0]->code);
           }
-#line 1767 "calcilist.tab.c"
+#line 1776 "calcilist.tab.c"
     break;
 
-  case 43: /* CONDITION: CONDITION OR CONDITION  */
-#line 463 "calcilist.y"
+  case 44: /* CONDITION: CONDITION OR CONDITION  */
+#line 465 "calcilist.y"
                                  {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + 5);
               sprintf(yyval->code, "%s || %s", yyvsp[-2]->code, yyvsp[0]->code);
           }
-#line 1777 "calcilist.tab.c"
+#line 1786 "calcilist.tab.c"
     break;
 
-  case 44: /* CONDITION: EXPR RELOP EXPR  */
-#line 468 "calcilist.y"
+  case 45: /* CONDITION: EXPR RELOP EXPR  */
+#line 470 "calcilist.y"
                           {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + strlen(yyvsp[0]->code) + strlen(yyvsp[-1]->code) + 5);
               sprintf(yyval->code, "%s %s %s", yyvsp[-2]->code, yyvsp[-1]->code, yyvsp[0]->code);
           }
-#line 1787 "calcilist.tab.c"
+#line 1796 "calcilist.tab.c"
     break;
 
-  case 45: /* CONDITION: '(' CONDITION ')'  */
-#line 473 "calcilist.y"
+  case 46: /* CONDITION: '(' CONDITION ')'  */
+#line 475 "calcilist.y"
                             {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-1]->code) + 3);
               sprintf(yyval->code, "(%s)", yyvsp[-1]->code);
           }
-#line 1797 "calcilist.tab.c"
+#line 1806 "calcilist.tab.c"
     break;
 
-  case 46: /* CONDITION: EXPR  */
-#line 478 "calcilist.y"
+  case 47: /* CONDITION: EXPR  */
+#line 480 "calcilist.y"
                {
               yyval = yyvsp[0];
           }
-#line 1805 "calcilist.tab.c"
+#line 1814 "calcilist.tab.c"
     break;
 
-  case 47: /* BLOCK: LBRACE NEWLINES LINES NEWLINES RBRACE  */
-#line 483 "calcilist.y"
+  case 48: /* BLOCK: LBRACE NEWLINES LINES NEWLINES RBRACE  */
+#line 485 "calcilist.y"
                                                 {
               yyval = NewNode();
               yyval->code = (char*)malloc(strlen(yyvsp[-2]->code) + 5);
               sprintf(yyval->code, "%s", yyvsp[-2]->code);
           }
-#line 1815 "calcilist.tab.c"
+#line 1824 "calcilist.tab.c"
     break;
 
 
-#line 1819 "calcilist.tab.c"
+#line 1828 "calcilist.tab.c"
 
       default: break;
     }
@@ -2008,7 +2017,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 489 "calcilist.y"
+#line 491 "calcilist.y"
 
 
 int main(int argc, char *argv[])
