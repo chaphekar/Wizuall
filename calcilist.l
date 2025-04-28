@@ -12,6 +12,7 @@ void yyerror(char*);
 
 %%
 
+"plot" {return PLOT;}
 "func" {return FUNC;}
 "mean" {return MEAN;}
 "max" {return MAX;}

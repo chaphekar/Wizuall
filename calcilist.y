@@ -292,6 +292,7 @@ list *lst; /* for debugging. temp. */
 // }
 %}
 
+%token PLOT
 %token NUM
 %token VAR
 %token FUNC
@@ -338,16 +339,17 @@ EXPR        :   EXPR    '+'     TERM  {
                 sprintf($$->code, "%s - %s", $1->code, $3->code);
             }
             |   TERM                            { $$ = $1; }
-            |  MEAN VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "mean(%s)", $2->code); }
-            |  MAX VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "max(%s)", $2->code); }
-            |  MIN VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "min(%s)", $2->code); }
-            |  SUM VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "sum(%s)", $2->code); }
-            |  MOVMEAN VAR NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 10); sprintf($$->code, "movmean(%s, %s)", $2->code, $3->code); }
-            |  REVERSE VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "flip(%s)", $2->code); }
-            |  DOTPRODUCT VAR VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 10); sprintf($$->code, "dot(%s,%s)", $2->code, $3->code); }
-            |  SCATTERPLOT VAR VAR { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 13); sprintf($$->code, "scatter(%s,%s)", $2->code, $3->code); }
-            |  HISTOGRAM VAR NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 12); sprintf($$->code, "hist(%s,%s)", $2->code, $3->code); }
-            |  POWER VAR NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 5); sprintf($$->code, "%s.^%s", $2->code, $3->code); }
+            |  MEAN VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "mean(%s)", $2->code); }
+            |  MAX VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "max(%s)", $2->code); }
+            |  MIN VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "min(%s)", $2->code); }
+            |  SUM VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "sum(%s)", $2->code); }
+            |  MOVMEAN VARI NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 10); sprintf($$->code, "movmean(%s, %s)", $2->code, $3->code); }
+            |  REVERSE VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 10); sprintf($$->code, "flip(%s)", $2->code); }
+            |  DOTPRODUCT VARI VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 10); sprintf($$->code, "dot(%s, %s)", $2->code, $3->code); }
+            |  SCATTERPLOT VARI VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 13); sprintf($$->code, "scatter(%s, %s)", $2->code, $3->code); }
+            |  PLOT VARI VARI { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 13); sprintf($$->code, "plot(%s, %s)", $2->code, $3->code); }
+            |  HISTOGRAM VARI NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + strlen($3->code) + 12); sprintf($$->code, "hist(%s, %s)", $2->code, $3->code); }
+            |  POWER VARI NUM { $$ = NewNode(); $$->code = (char*)malloc(strlen($2->code) + 5); sprintf($$->code, "%s.^%s", $2->code, $3->code); }
             ;
 
 TERM        :   TERM    '*'     FACTOR          { }
@@ -407,6 +409,17 @@ NEWLINES    : '\n' NEWLINES
 PARAMS      : VAR                        { /* single parameter */ }
             | PARAMS ',' VAR             { /* more parameters */ }
             ;
+
+VARI : VAR {
+             Symbol *sym = lookup($1->code);  // Use the identifier name from Symbol
+             if (!sym) {
+                 printf("undef: %s\n", $1->code);
+                 yyerror("Undefined variable");
+                 YYABORT;
+             }
+             $$ = NewNode();
+             $$->code = strdup($1->code);  // Store the variable's code
+         }
 %%
 
 int main(int argc, char *argv[])

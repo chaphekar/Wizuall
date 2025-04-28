@@ -54,19 +54,20 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    NUM = 258,                     /* NUM  */
-    VAR = 259,                     /* VAR  */
-    FUNC = 260,                    /* FUNC  */
-    MEAN = 261,                    /* MEAN  */
-    MAX = 262,                     /* MAX  */
-    MIN = 263,                     /* MIN  */
-    SUM = 264,                     /* SUM  */
-    MOVMEAN = 265,                 /* MOVMEAN  */
-    REVERSE = 266,                 /* REVERSE  */
-    DOTPRODUCT = 267,              /* DOTPRODUCT  */
-    SCATTERPLOT = 268,             /* SCATTERPLOT  */
-    HISTOGRAM = 269,               /* HISTOGRAM  */
-    POWER = 270                    /* POWER  */
+    PLOT = 258,                    /* PLOT  */
+    NUM = 259,                     /* NUM  */
+    VAR = 260,                     /* VAR  */
+    FUNC = 261,                    /* FUNC  */
+    MEAN = 262,                    /* MEAN  */
+    MAX = 263,                     /* MAX  */
+    MIN = 264,                     /* MIN  */
+    SUM = 265,                     /* SUM  */
+    MOVMEAN = 266,                 /* MOVMEAN  */
+    REVERSE = 267,                 /* REVERSE  */
+    DOTPRODUCT = 268,              /* DOTPRODUCT  */
+    SCATTERPLOT = 269,             /* SCATTERPLOT  */
+    HISTOGRAM = 270,               /* HISTOGRAM  */
+    POWER = 271                    /* POWER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
