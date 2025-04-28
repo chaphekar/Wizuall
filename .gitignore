@@ -1,5 +1,7 @@
 a.out
 oct.m
-*.wiz
+prog.wiz
+prog1.wiz
 output.m
 output1.m
+testcases/*.m

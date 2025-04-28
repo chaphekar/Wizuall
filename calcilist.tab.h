@@ -67,7 +67,14 @@ extern int yydebug;
     DOTPRODUCT = 268,              /* DOTPRODUCT  */
     SCATTERPLOT = 269,             /* SCATTERPLOT  */
     HISTOGRAM = 270,               /* HISTOGRAM  */
-    POWER = 271                    /* POWER  */
+    POWER = 271,                   /* POWER  */
+    IF = 272,                      /* IF  */
+    ELSE = 273,                    /* ELSE  */
+    AND = 274,                     /* AND  */
+    OR = 275,                      /* OR  */
+    RELOP = 276,                   /* RELOP  */
+    LBRACE = 277,                  /* LBRACE  */
+    RBRACE = 278                   /* RBRACE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

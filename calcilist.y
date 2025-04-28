@@ -306,27 +306,51 @@ list *lst; /* for debugging. temp. */
 %token SCATTERPLOT
 %token HISTOGRAM
 %token POWER
+%token IF
+%token ELSE
+%token AND OR
+%token RELOP
+%token LBRACE RBRACE
 
 %%
-LINES       :   LINES LINE { }
-            |   FUNCTION
-            |
-            ;
+START : LINES { printf("%s\n", $1->code); }
+LINES : LINES LINE {
+    $$ = NewNode();
+    $$->code = (char*)malloc(strlen($1->code) + strlen($2->code) + 2);
+    sprintf($$->code, "%s\n%s", $1->code, $2->code);
+}
+| LINE {
+    $$ = NewNode();
+    $$->code = strdup($1->code);
+}
+| /* empty */ {
+    $$ = NewNode();
+    $$->code = strdup(""); 
+}
+;
 
 LINE        : VAR '=' EXPR '\n' {
           Symbol *sym = lookup($1->code);  // Use the identifier name from Symbol
           if (!sym) sym = insert($1->code, NULL); // Insert if not found
         //   printf("%s = %g\n", $1, sym->value);
 
-          printf("%s = %s\n", $1->code, $3->code);
+            // printf("%s = %s\n", $1->code, $3->code);
+            $$ = NewNode();
+            $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 5);
+            sprintf($$->code, "%s = %s\n", $1->code, $3->code);
         //   append_to_file("output.m", "%s = %s", $1->code, $3->code);
 
       }
             | EXPR '\n' { 
-                printf("%s\n", $1->code);
+                $$ = NewNode();
+                $$->code = (char*)malloc(strlen($1->code) + 3);
+                sprintf($$->code, "%s\n", $1->code);
+                // printf("%s\n", $1->code);
                 // append_to_file("output.m", "%s", $1->code);
             }
-            | '\n';
+            | STMT { $$ = NewNode(); $$->code = strdup($1->code); }
+            | '\n' { $$ = NewNode(); $$->code = strdup(""); }
+            ;
 
 EXPR        :   EXPR    '+'     TERM  { 
                 $$ = NewNode();
@@ -399,15 +423,12 @@ EXTEND      :   LIST                            { $$ = $1; }
             |                                   { $$ = NULL; }
             ;
 
-FUNCTION    : FUNC VAR '(' PARAMS ')' NEWLINES '{' LINES '}' {printf("function spotted\n");}
-            ;
-
 NEWLINES    : '\n' NEWLINES
             | /* empty */
             ;
 
-PARAMS      : VAR                        { /* single parameter */ }
-            | PARAMS ',' VAR             { /* more parameters */ }
+NEWLINE     : '\n'
+            |
             ;
 
 VARI : VAR {
@@ -420,6 +441,51 @@ VARI : VAR {
              $$ = NewNode();
              $$->code = strdup($1->code);  // Store the variable's code
          }
+
+STMT    : IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE ELSE BLOCK NEWLINE {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($3->code) + strlen($6->code) + strlen($9->code) + 40);
+              sprintf($$->code, "if (%s)\n%selse\n%sendif", $3->code, $6->code, $9->code);
+         }
+        | IF '(' CONDITION ')' NEWLINE BLOCK NEWLINE {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($3->code) + strlen($6->code) + 20);
+              sprintf($$->code, "if (%s)\n%sendif", $3->code, $6->code);
+         }
+        ;
+
+CONDITION 
+        : CONDITION AND CONDITION {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 5);
+              sprintf($$->code, "%s && %s", $1->code, $3->code);
+          }
+        | CONDITION OR CONDITION {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + 5);
+              sprintf($$->code, "%s || %s", $1->code, $3->code);
+          }
+        | EXPR RELOP EXPR {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($1->code) + strlen($3->code) + strlen($2->code) + 5);
+              sprintf($$->code, "%s %s %s", $1->code, $2->code, $3->code);
+          }
+        | '(' CONDITION ')' {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($2->code) + 3);
+              sprintf($$->code, "(%s)", $2->code);
+          }
+        | EXPR {
+              $$ = $1;
+          }
+        ;
+
+BLOCK   : LBRACE NEWLINES LINES NEWLINES RBRACE {
+              $$ = NewNode();
+              $$->code = (char*)malloc(strlen($3->code) + 5);
+              sprintf($$->code, "%s", $3->code);
+          }
+        ;
 %%
 
 int main(int argc, char *argv[])
